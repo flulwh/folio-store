@@ -1,0 +1,51 @@
+{
+  "manifest": {
+    "id": "reading-presets",
+    "name": "排版预设",
+    "version": "1.0.0",
+    "apiVersion": 1,
+    "description": "一键切换紧凑、舒适、大字三种排版，不用再逐个拖滑块。",
+    "author": "Folio",
+    "main": "main.js",
+    "permissions": [
+      "ui",
+      "settings",
+      "notify"
+    ],
+    "contributes": {
+      "commands": [
+        {
+          "id": "open",
+          "title": "打开排版预设"
+        },
+        {
+          "id": "compact",
+          "title": "切到紧凑排版"
+        },
+        {
+          "id": "comfort",
+          "title": "切到舒适排版"
+        },
+        {
+          "id": "large",
+          "title": "切到大字排版"
+        }
+      ],
+      "ui": {
+        "panels": [
+          {
+            "id": "presets",
+            "title": "排版预设",
+            "slot": "settings",
+            "width": "normal",
+            "icon": "Aa"
+          }
+        ]
+      }
+    }
+  },
+  "files": {
+    "main.js": "module.exports.activate = (folio) => {\n  const PRESETS = [\n    { id: 'compact', label: '紧凑', hint: '信息密度高，适合快速翻', values: { fontSize: 16, lineHeight: 1.6, pageWidth: 620, paragraphSpacing: 0.6 } },\n    { id: 'comfort', label: '舒适', hint: '默认的阅读节奏', values: { fontSize: 18, lineHeight: 1.85, pageWidth: 700, paragraphSpacing: 1 } },\n    { id: 'large', label: '大字', hint: '字号大、行距松，夜里看更轻松', values: { fontSize: 21, lineHeight: 2, pageWidth: 760, paragraphSpacing: 1.2 } },\n  ];\n\n  const current = () => {\n    const settings = folio.app.settings.get() || {};\n    return {\n      fontSize: Number(settings.fontSize) || 18,\n      lineHeight: Number(settings.lineHeight) || 1.85,\n      pageWidth: Number(settings.pageWidth) || 700,\n      paragraphSpacing: Number(settings.paragraphSpacing) || 1,\n    };\n  };\n\n  const apply = (id) => {\n    const preset = PRESETS.find((item) => item.id === id);\n    if (!preset) return null;\n    folio.app.settings.patch(preset.values);\n    folio.notify('已切到「' + preset.label + '」排版');\n    render();\n    return preset.label;\n  };\n\n  const render = () => {\n    const now = current();\n    folio.ui.set('presets', {\n      type: 'stack',\n      children: [\n        { type: 'label', text: '当前' },\n        { type: 'row', children: [\n          { type: 'metric', value: String(now.fontSize) + 'px', label: '字号' },\n          { type: 'metric', value: String(now.lineHeight), label: '行距' },\n          { type: 'metric', value: String(now.pageWidth) + 'px', label: '正文宽度' },\n        ]},\n        { type: 'divider' },\n        {\n          type: 'list',\n          children: PRESETS.map((preset) => ({\n            type: 'row',\n            children: [\n              { type: 'text', text: preset.label + ' · ' + preset.hint },\n              { type: 'button', text: '应用', size: 'small', action: { id: 'apply', payload: { preset: preset.id } } },\n            ],\n          })),\n        },\n        { type: 'text', text: '改动会立刻写进阅读设置，也可以在阅读器里按 S 微调。', tone: 'mono' },\n      ],\n    });\n  };\n\n  render();\n\n  folio.commands.register('open', '打开排版预设', () => {\n    render();\n    folio.ui.open('presets');\n    return '已打开';\n  });\n  folio.commands.register('compact', '切到紧凑排版', () => apply('compact'));\n  folio.commands.register('comfort', '切到舒适排版', () => apply('comfort'));\n  folio.commands.register('large', '切到大字排版', () => apply('large'));\n\n  folio.ui.onAction((action) => {\n    if (action.id === 'apply') return apply(action.payload?.preset);\n    if (action.id === 'refresh') {\n      render();\n      return '已刷新';\n    }\n    return null;\n  });\n};\n",
+    "manifest.json": "{\n  \"id\": \"reading-presets\",\n  \"name\": \"排版预设\",\n  \"version\": \"1.0.0\",\n  \"apiVersion\": 1,\n  \"description\": \"一键切换紧凑、舒适、大字三种排版，不用再逐个拖滑块。\",\n  \"author\": \"Folio\",\n  \"main\": \"main.js\",\n  \"permissions\": [\"ui\", \"settings\", \"notify\"],\n  \"contributes\": {\n    \"commands\": [\n      { \"id\": \"open\", \"title\": \"打开排版预设\" },\n      { \"id\": \"compact\", \"title\": \"切到紧凑排版\" },\n      { \"id\": \"comfort\", \"title\": \"切到舒适排版\" },\n      { \"id\": \"large\", \"title\": \"切到大字排版\" }\n    ],\n    \"ui\": {\n      \"panels\": [{ \"id\": \"presets\", \"title\": \"排版预设\", \"slot\": \"settings\", \"width\": \"normal\", \"icon\": \"Aa\" }]\n    }\n  }\n}\n"
+  }
+}
