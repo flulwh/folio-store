@@ -2,8 +2,8 @@
   "version": 1,
   "name": "Folio 插件商店",
   "homepage": "https://flulwh.github.io/folio-store/",
-  "updatedAt": "2026-10-25T04:49:47.965Z",
-  "count": 3,
+  "updatedAt": "2026-10-25T05:05:22.014Z",
+  "count": 4,
   "plugins": [
     {
       "id": "reading-clock",
@@ -83,6 +83,31 @@
       "bundle": "plugins/book-shuffle.json",
       "sha256": "94ec8967be6f6ad5802176333efe2f62fbb288542f0a9a72f5aab15f7df6f1ad",
       "size": 2856
+    },
+    {
+      "id": "ui-dashboard",
+      "name": "阅读面板",
+      "version": "1.0.0",
+      "description": "用插件界面展示书架概览，支持一键刷新和随机推荐。",
+      "author": "Folio",
+      "permissions": [
+        "ui",
+        "books",
+        "notify"
+      ],
+      "settings": [],
+      "commands": [
+        "打开阅读面板"
+      ],
+      "tags": [
+        "界面",
+        "统计"
+      ],
+      "featured": true,
+      "summary": "用插件界面展示书架概览，支持一键刷新和随机推荐。",
+      "bundle": "plugins/ui-dashboard.json",
+      "sha256": "5c6ad3d5da4a4ec5eb593e02252ba83c407a38f1b6e368e530830f7540e92730",
+      "size": 4230
     }
   ]
 }
