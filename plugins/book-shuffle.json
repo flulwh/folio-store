@@ -1,0 +1,40 @@
+{
+  "manifest": {
+    "id": "book-shuffle",
+    "name": "随机抽书",
+    "version": "1.0.0",
+    "description": "从书架里随机抽一本，选择困难的时候用。",
+    "author": "Folio",
+    "main": "main.js",
+    "permissions": [
+      "notify",
+      "books"
+    ],
+    "settings": [
+      {
+        "key": "onlyUnfinished",
+        "label": "只抽没读完的",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "contributes": {
+      "commands": [
+        {
+          "id": "shuffle",
+          "title": "随机抽一本",
+          "description": "从书架里随机挑一本"
+        },
+        {
+          "id": "three",
+          "title": "抽三本备选",
+          "description": "一次给出三个候选"
+        }
+      ]
+    }
+  },
+  "files": {
+    "main.js": "module.exports.activate = (folio) => {\n  const pool = () => {\n    const onlyUnfinished = folio.settings.get('onlyUnfinished', true);\n    const books = folio.books.list() || [];\n    const filtered = onlyUnfinished\n      ? books.filter((book) => Number(book.percent || 0) < 99)\n      : books;\n    return (filtered.length ? filtered : books).map((book) => book.name).filter(Boolean);\n  };\n\n  const pick = (list, count) => {\n    const copy = [...list];\n    const out = [];\n    while (copy.length && out.length < count) {\n      out.push(copy.splice(Math.floor(Math.random() * copy.length), 1)[0]);\n    }\n    return out;\n  };\n\n  folio.commands.register('shuffle', '随机抽一本', () => {\n    const list = pool();\n    if (!list.length) {\n      folio.notify('书架是空的，先加几本书吧', 'error');\n      return null;\n    }\n    const name = pick(list, 1)[0];\n    folio.notify(`今天就读《${name}》吧`);\n    return name;\n  });\n\n  folio.commands.register('three', '抽三本备选', () => {\n    const list = pool();\n    if (!list.length) {\n      folio.notify('书架是空的，先加几本书吧', 'error');\n      return [];\n    }\n    const picked = pick(list, 3);\n    folio.notify(`候选：${picked.map((name) => `《${name}》`).join('、')}`);\n    return picked;\n  });\n};\n",
+    "manifest.json": "{\n  \"id\": \"book-shuffle\",\n  \"name\": \"随机抽书\",\n  \"version\": \"1.0.0\",\n  \"description\": \"从书架里随机抽一本，选择困难的时候用。\",\n  \"author\": \"Folio\",\n  \"main\": \"main.js\",\n  \"permissions\": [\"notify\", \"books\"],\n  \"settings\": [\n    { \"key\": \"onlyUnfinished\", \"label\": \"只抽没读完的\", \"type\": \"boolean\", \"default\": true }\n  ],\n  \"contributes\": {\n    \"commands\": [\n      { \"id\": \"shuffle\", \"title\": \"随机抽一本\", \"description\": \"从书架里随机挑一本\" },\n      { \"id\": \"three\", \"title\": \"抽三本备选\", \"description\": \"一次给出三个候选\" }\n    ]\n  }\n}\n"
+  }
+}
