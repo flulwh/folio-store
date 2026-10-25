@@ -1,0 +1,38 @@
+{
+  "manifest": {
+    "id": "ui-dashboard",
+    "name": "阅读面板",
+    "version": "1.0.0",
+    "description": "用插件界面展示书架概览，支持一键刷新和随机推荐。",
+    "author": "Folio",
+    "main": "main.js",
+    "permissions": [
+      "ui",
+      "books",
+      "notify"
+    ],
+    "contributes": {
+      "commands": [
+        {
+          "id": "open",
+          "title": "打开阅读面板"
+        }
+      ],
+      "ui": {
+        "panels": [
+          {
+            "id": "dashboard",
+            "title": "书架概览",
+            "slot": "overlay",
+            "width": "wide",
+            "icon": "📊"
+          }
+        ]
+      }
+    }
+  },
+  "files": {
+    "main.js": "module.exports.activate = (folio) => {\n  const percentOf = (book) => {\n    const value = Number(book?.percent);\n    return Number.isFinite(value) ? Math.round(value) : 0;\n  };\n\n  const render = () => {\n    const books = folio.books.list() || [];\n    const reading = books.filter((book) => percentOf(book) > 0 && percentOf(book) < 100).slice(0, 3);\n    const finished = books.filter((book) => percentOf(book) >= 100).length;\n    const average = books.length\n      ? Math.round(books.reduce((sum, book) => sum + percentOf(book), 0) / books.length)\n      : 0;\n\n    folio.ui.set('dashboard', {\n      type: 'stack',\n      children: [\n        {\n          type: 'row',\n          children: [\n            { type: 'metric', value: String(books.length), label: '书架上的书' },\n            { type: 'metric', value: String(finished), label: '已读完' },\n            { type: 'metric', value: `${average}%`, label: '平均进度' },\n          ],\n        },\n        { type: 'progress', value: average, label: '整体进度' },\n        { type: 'divider' },\n        { type: 'label', text: '最近在读' },\n        reading.length\n          ? {\n              type: 'list',\n              children: reading.map((book) => ({\n                type: 'row',\n                children: [\n                  { type: 'text', text: book.name, tone: 'default' },\n                  { type: 'text', text: `${percentOf(book)}%`, tone: 'mono' },\n                ],\n              })),\n            }\n          : { type: 'text', text: '还没有读到一半的书', tone: 'mono' },\n        { type: 'spacer' },\n        {\n          type: 'row',\n          children: [\n            { type: 'button', text: '刷新', size: 'small', action: { id: 'refresh' } },\n            { type: 'button', text: '随机推荐一本', size: 'small', action: { id: 'random' } },\n          ],\n        },\n      ],\n    });\n  };\n\n  folio.ui.onAction(async (action) => {\n    if (action.id === 'refresh' || action.command === 'refresh') {\n      render();\n      return '已刷新';\n    }\n    if (action.id === 'random' || action.command === 'random') {\n      const books = (folio.books.list() || []).filter((book) => percentOf(book) < 100);\n      if (!books.length) {\n        folio.notify('书架里没有未读完的书', 'error');\n        return null;\n      }\n      const book = books[Math.floor(Math.random() * books.length)];\n      folio.notify(`今天读《${book.name}》`);\n      return book.name;\n    }\n    return null;\n  });\n\n  folio.commands.register('open', '打开阅读面板', () => {\n    render();\n    folio.ui.open('dashboard');\n    return '已打开阅读面板';\n  });\n\n  render();\n};\n",
+    "manifest.json": "{\r\n  \"id\": \"ui-dashboard\",\r\n  \"name\": \"阅读面板\",\r\n  \"version\": \"1.0.0\",\r\n  \"description\": \"用插件界面展示书架概览，支持一键刷新和随机推荐。\",\r\n  \"author\": \"Folio\",\r\n  \"main\": \"main.js\",\r\n  \"permissions\": [\r\n    \"ui\",\r\n    \"books\",\r\n    \"notify\"\r\n  ],\r\n  \"contributes\": {\r\n    \"commands\": [\r\n      {\r\n        \"id\": \"open\",\r\n        \"title\": \"打开阅读面板\"\r\n      }\r\n    ],\r\n    \"ui\": {\r\n      \"panels\": [\r\n        {\r\n          \"id\": \"dashboard\",\r\n          \"title\": \"书架概览\",\r\n          \"slot\": \"overlay\",\r\n          \"width\": \"wide\",\r\n          \"icon\": \"📊\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}\r\n"
+  }
+}
