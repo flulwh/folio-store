@@ -2,8 +2,26 @@
   "version": 1,
   "name": "Folio 插件商店",
   "homepage": "https://flulwh.github.io/folio-store/",
-  "updatedAt": "2026-10-25T05:05:22.014Z",
+  "updatedAt": "2026-10-25T05:15:39.380Z",
   "count": 4,
+  "categories": [
+    {
+      "id": "reading",
+      "label": "阅读增强"
+    },
+    {
+      "id": "stats",
+      "label": "统计"
+    },
+    {
+      "id": "interface",
+      "label": "界面"
+    },
+    {
+      "id": "tools",
+      "label": "工具"
+    }
+  ],
   "plugins": [
     {
       "id": "reading-clock",
@@ -22,6 +40,7 @@
         "今日阅读统计",
         "清零今天的记录"
       ],
+      "category": "stats",
       "tags": [
         "统计",
         "阅读"
@@ -47,6 +66,7 @@
       "commands": [
         "来一句书摘"
       ],
+      "category": "reading",
       "tags": [
         "书摘",
         "通知"
@@ -74,6 +94,7 @@
         "随机抽一本",
         "抽三本备选"
       ],
+      "category": "reading",
       "tags": [
         "书架",
         "随机"
@@ -99,6 +120,7 @@
       "commands": [
         "打开阅读面板"
       ],
+      "category": "interface",
       "tags": [
         "界面",
         "统计"
