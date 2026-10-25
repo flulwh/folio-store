@@ -2,8 +2,8 @@
   "version": 1,
   "name": "Folio 插件商店",
   "homepage": "https://flulwh.github.io/folio-store/",
-  "updatedAt": "2026-10-25T05:15:39.380Z",
-  "count": 4,
+  "updatedAt": "2026-10-25T05:22:59.717Z",
+  "count": 8,
   "categories": [
     {
       "id": "reading",
@@ -130,6 +130,125 @@
       "bundle": "plugins/ui-dashboard.json",
       "sha256": "5c6ad3d5da4a4ec5eb593e02252ba83c407a38f1b6e368e530830f7540e92730",
       "size": 4230
+    },
+    {
+      "id": "focus-timer",
+      "name": "专注计时",
+      "version": "1.0.0",
+      "description": "番茄钟：专注一轮、休息一下，把今天读了几轮记下来。",
+      "author": "Folio",
+      "permissions": [
+        "ui",
+        "notify",
+        "settings"
+      ],
+      "settings": [
+        "focusMinutes",
+        "breakMinutes"
+      ],
+      "commands": [
+        "开始专注",
+        "打开计时器",
+        "今天读了几轮"
+      ],
+      "category": "reading",
+      "tags": [
+        "专注",
+        "计时"
+      ],
+      "featured": true,
+      "summary": "番茄钟：专注一轮、休息一下，把今天读了几轮记下来。",
+      "bundle": "plugins/focus-timer.json",
+      "sha256": "9ff98d665874bd87b8f4af205e330742dd54bd0bc9940889925d1491b7473543",
+      "size": 6982
+    },
+    {
+      "id": "quote-book",
+      "name": "书摘本",
+      "version": "1.0.0",
+      "description": "随手记下句子，随机抽一句、一键复制，都放在插件自己的存储里。",
+      "author": "Folio",
+      "permissions": [
+        "ui",
+        "notify",
+        "clipboard"
+      ],
+      "settings": [
+        "showOnOpen"
+      ],
+      "commands": [
+        "打开书摘本",
+        "随机来一句"
+      ],
+      "category": "reading",
+      "tags": [
+        "书摘",
+        "剪贴板"
+      ],
+      "featured": true,
+      "summary": "随手记下句子，随机抽一句、一键复制，都放在插件自己的存储里。",
+      "bundle": "plugins/quote-book.json",
+      "sha256": "c76f349907d3279f3312b9ac3f97a9cee7562d9def63ad3d65a5e4261cab12e3",
+      "size": 5085
+    },
+    {
+      "id": "reading-goal",
+      "name": "阅读目标",
+      "version": "1.0.0",
+      "description": "给每天定一个阅读时长目标，记录连续天数，完成时提醒你。",
+      "author": "Folio",
+      "permissions": [
+        "ui",
+        "notify",
+        "settings"
+      ],
+      "settings": [
+        "dailyMinutes",
+        "notifyOnDone"
+      ],
+      "commands": [
+        "打开阅读目标",
+        "今天读了多少"
+      ],
+      "category": "stats",
+      "tags": [
+        "目标",
+        "统计"
+      ],
+      "featured": true,
+      "summary": "给每天定一个阅读时长目标，记录连续天数，完成时提醒你。",
+      "bundle": "plugins/reading-goal.json",
+      "sha256": "59d37cb5efaebdf3aa6b7c8779d52e40cd74512bf96ac27396a4684b18d289fb",
+      "size": 5720
+    },
+    {
+      "id": "reading-presets",
+      "name": "排版预设",
+      "version": "1.0.0",
+      "description": "一键切换紧凑、舒适、大字三种排版，不用再逐个拖滑块。",
+      "author": "Folio",
+      "permissions": [
+        "ui",
+        "settings",
+        "notify"
+      ],
+      "settings": [],
+      "commands": [
+        "打开排版预设",
+        "切到紧凑排版",
+        "切到舒适排版",
+        "切到大字排版"
+      ],
+      "category": "interface",
+      "tags": [
+        "排版",
+        "预设"
+      ],
+      "featured": false,
+      "summary": "一键切换紧凑、舒适、大字三种排版。",
+      "bundle": "plugins/reading-presets.json",
+      "sha256": "b4012fff573814a9227b683c3a9da3da5dbedb5d20edf1414d63c59a1847a6c1",
+      "size": 4684
     }
   ]
 }
