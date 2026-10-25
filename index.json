@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "name": "Folio 插件商店",
+  "homepage": "https://flulwh.github.io/folio-store/",
+  "updatedAt": "2026-10-25T04:49:47.965Z",
+  "count": 3,
+  "plugins": [
+    {
+      "id": "reading-clock",
+      "name": "阅读时钟",
+      "version": "1.1.0",
+      "description": "统计今天读了多久、翻了几本书。设置里可以给每天定个目标。",
+      "author": "Folio",
+      "permissions": [
+        "notify"
+      ],
+      "settings": [
+        "dailyGoal",
+        "notifyOnSave"
+      ],
+      "commands": [
+        "今日阅读统计",
+        "清零今天的记录"
+      ],
+      "tags": [
+        "统计",
+        "阅读"
+      ],
+      "featured": true,
+      "summary": "统计今天读了多久、翻了几本书，可以设置每日目标。",
+      "bundle": "plugins/reading-clock.json",
+      "sha256": "541fe8bf9cf57f23bd0d2e57f70987985080f02070a8f1dc47e50f2724366c3c",
+      "size": 3942
+    },
+    {
+      "id": "daily-quote",
+      "name": "每日书摘",
+      "version": "1.1.0",
+      "description": "随机弹出一句书摘。可以在设置里塞自己的句子，存在插件自己的存储里。",
+      "author": "Folio",
+      "permissions": [
+        "notify"
+      ],
+      "settings": [
+        "quotesText"
+      ],
+      "commands": [
+        "来一句书摘"
+      ],
+      "tags": [
+        "书摘",
+        "通知"
+      ],
+      "featured": true,
+      "summary": "随机弹出一句书摘，支持写入自己的句子。",
+      "bundle": "plugins/daily-quote.json",
+      "sha256": "142e07b199f29dfd734fa03a2545347c8b2a0860e1b7c2603d5a0aa3d6107264",
+      "size": 2351
+    },
+    {
+      "id": "book-shuffle",
+      "name": "随机抽书",
+      "version": "1.0.0",
+      "description": "从书架里随机抽一本，选择困难的时候用。",
+      "author": "Folio",
+      "permissions": [
+        "notify",
+        "books"
+      ],
+      "settings": [
+        "onlyUnfinished"
+      ],
+      "commands": [
+        "随机抽一本",
+        "抽三本备选"
+      ],
+      "tags": [
+        "书架",
+        "随机"
+      ],
+      "featured": false,
+      "summary": "从书架里随机抽一本，帮你决定今天读什么。",
+      "bundle": "plugins/book-shuffle.json",
+      "sha256": "94ec8967be6f6ad5802176333efe2f62fbb288542f0a9a72f5aab15f7df6f1ad",
+      "size": 2856
+    }
+  ]
+}
