@@ -2,8 +2,8 @@
   "version": 1,
   "name": "Folio 插件商店",
   "homepage": "https://flulwh.github.io/folio-store/",
-  "updatedAt": "2026-10-25T05:28:16.912Z",
-  "count": 8,
+  "updatedAt": "2026-10-25T05:33:41.775Z",
+  "count": 9,
   "categories": [
     {
       "id": "reading",
@@ -249,6 +249,28 @@
       "bundle": "plugins/reading-presets.json",
       "sha256": "ec5f6129ac927433df76857b1dcdc6ef893d92494edf8bc821e51e306e46c61c",
       "size": 4976
+    },
+    {
+      "id": "theme-pack",
+      "name": "配色包",
+      "version": "1.0.0",
+      "description": "两套额外配色：琥珀（暖橙）与墨绿。装上后可在外观里直接切换。",
+      "author": "Folio",
+      "permissions": [
+        "themes"
+      ],
+      "settings": [],
+      "commands": [],
+      "category": "interface",
+      "tags": [
+        "配色",
+        "外观"
+      ],
+      "featured": true,
+      "summary": "两套额外配色：琥珀与墨绿，装上即可在外观里切换。",
+      "bundle": "plugins/theme-pack.json",
+      "sha256": "37c9347e6b491d309a8e74898987f0baa8ed1c27bcaedcb35125a78ed96f90ff",
+      "size": 2050
     }
   ]
 }
