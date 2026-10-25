@@ -1,0 +1,46 @@
+{
+  "manifest": {
+    "id": "reading-clock",
+    "name": "阅读时钟",
+    "version": "1.1.0",
+    "description": "统计今天读了多久、翻了几本书。设置里可以给每天定个目标。",
+    "author": "Folio",
+    "main": "main.js",
+    "permissions": [
+      "notify"
+    ],
+    "settings": [
+      {
+        "key": "dailyGoal",
+        "label": "每日目标（分钟）",
+        "type": "number",
+        "default": 30,
+        "description": "统计命令会显示今天还差多少。"
+      },
+      {
+        "key": "notifyOnSave",
+        "label": "每次保存进度时提示",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "contributes": {
+      "commands": [
+        {
+          "id": "today",
+          "title": "今日阅读统计",
+          "description": "今天读了多久、翻了几本书"
+        },
+        {
+          "id": "reset",
+          "title": "清零今天的记录",
+          "description": "把今天的累计清零重新开始"
+        }
+      ]
+    }
+  },
+  "files": {
+    "main.js": "const DAY = () => new Date().toISOString().slice(0, 10);\n\nmodule.exports.activate = (folio) => {\n  let lastTick = 0;\n\n  const key = () => `day:${DAY()}`;\n  const read = () => folio.storage.get(key(), { seconds: 0, saves: 0, books: [] });\n  const write = (bucket) => folio.storage.set(key(), bucket);\n\n  folio.events.on('progress:save', () => {\n    const now = Date.now();\n    const delta = lastTick ? Math.min(120, Math.max(0, (now - lastTick) / 1000)) : 0;\n    lastTick = now;\n    if (delta <= 0) return;\n    const bucket = read();\n    bucket.seconds = Math.round((bucket.seconds || 0) + delta);\n    bucket.saves = (bucket.saves || 0) + 1;\n    write(bucket);\n    if (folio.settings.get('notifyOnSave', false)) {\n      folio.notify(`已累计 ${Math.round(bucket.seconds / 60)} 分钟`);\n    }\n  });\n\n  folio.events.on('book:open', ({ name } = {}) => {\n    if (!name) return;\n    const bucket = read();\n    bucket.books = Array.from(new Set([...(bucket.books || []), name])).slice(-20);\n    write(bucket);\n  });\n\n  folio.commands.register('today', '今日阅读统计', () => {\n    const bucket = read();\n    const minutes = Math.floor((bucket.seconds || 0) / 60);\n    const seconds = Math.round((bucket.seconds || 0) % 60);\n    const goal = Math.max(1, Number(folio.settings.get('dailyGoal', 30)) || 30);\n    const left = Math.max(0, goal - minutes);\n    const books = (bucket.books || []).length;\n    folio.notify(\n      `今天读了 ${minutes} 分 ${seconds} 秒，翻过 ${books} 本书。${left > 0 ? `离 ${goal} 分钟的目标还差 ${left} 分钟。` : '今天的目标已完成。'}`,\n    );\n    return { seconds: bucket.seconds || 0, books: bucket.books || [], goal };\n  });\n\n  folio.commands.register('reset', '清零今天的记录', () => {\n    write({ seconds: 0, saves: 0, books: [] });\n    folio.notify('今天的记录已清零');\n    return true;\n  });\n};\n",
+    "manifest.json": "{\n  \"id\": \"reading-clock\",\n  \"name\": \"阅读时钟\",\n  \"version\": \"1.1.0\",\n  \"description\": \"统计今天读了多久、翻了几本书。设置里可以给每天定个目标。\",\n  \"author\": \"Folio\",\n  \"main\": \"main.js\",\n  \"permissions\": [\"notify\"],\n  \"settings\": [\n    { \"key\": \"dailyGoal\", \"label\": \"每日目标（分钟）\", \"type\": \"number\", \"default\": 30, \"description\": \"统计命令会显示今天还差多少。\" },\n    { \"key\": \"notifyOnSave\", \"label\": \"每次保存进度时提示\", \"type\": \"boolean\", \"default\": false }\n  ],\n  \"contributes\": {\n    \"commands\": [\n      { \"id\": \"today\", \"title\": \"今日阅读统计\", \"description\": \"今天读了多久、翻了几本书\" },\n      { \"id\": \"reset\", \"title\": \"清零今天的记录\", \"description\": \"把今天的累计清零重新开始\" }\n    ]\n  }\n}\n"
+  }
+}
