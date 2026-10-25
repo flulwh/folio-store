@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Folio 插件商店</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0b0b0c; color: #f2f2f4; font: 15px/1.6 -apple-system, "Segoe UI", "Microsoft YaHei UI", sans-serif; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 64px 24px 80px; }
+  .eyebrow { font: 11px/1 ui-monospace, Menlo, Consolas, monospace; letter-spacing: .18em; text-transform: uppercase; color: #8e8e93; }
+  h1 { font-size: 34px; letter-spacing: -0.02em; margin: 10px 0 6px; }
+  .sub { color: #a1a1a6; margin-bottom: 34px; }
+  .card { border: 1px solid #2c2c2e; border-radius: 14px; padding: 18px 20px; margin-bottom: 12px; background: #131315; }
+  .card h2 { margin: 0; font-size: 16px; letter-spacing: -0.01em; }
+  .ver { font: 11px/1 ui-monospace, Menlo, Consolas, monospace; color: #8e8e93; margin-left: 8px; }
+  .desc { color: #a1a1a6; margin: 8px 0 10px; font-size: 13.5px; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { font: 10.5px/1 ui-monospace, Menlo, Consolas, monospace; color: #a1a1a6; border: 1px solid #2c2c2e; border-radius: 6px; padding: 3px 7px; }
+  @media (max-width: 600px) { .wrap { padding: 40px 16px 60px; } h1 { font-size: 26px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Folio Store</div>
+  <h1>Folio 插件商店</h1>
+  <p class="sub">安装：Folio → 设置 → 插件 → 商店 → 安装。也可以直接把这个地址填进插件商店。</p>
+  <div id="list"></div>
+</div>
+<script>
+fetch('index.json').then((r) => r.json()).then((data) => {
+  document.getElementById('list').innerHTML = data.plugins.map((p) => `
+    <div class="card">
+      <h2>${p.name}<span class="ver">v${p.version}</span></h2>
+      <div class="desc">${p.description || ''}</div>
+      <div class="chips">${(p.permissions.length ? p.permissions : ['无权限']).map((x) => '<span class="chip">' + x + '</span>').join('')}</div>
+    </div>`).join('');
+});
+</script>
+</body>
+</html>
