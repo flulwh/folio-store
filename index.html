@@ -18,6 +18,11 @@
   .desc { color: #a1a1a6; margin: 8px 0 10px; font-size: 13.5px; }
   .chips { display: flex; gap: 6px; flex-wrap: wrap; }
   .chip { font: 10.5px/1 ui-monospace, Menlo, Consolas, monospace; color: #a1a1a6; border: 1px solid #2c2c2e; border-radius: 6px; padding: 3px 7px; }
+  .flag { font: 10.5px/1 ui-monospace, Menlo, Consolas, monospace; color: #0a84ff; border: 1px solid rgba(10,132,255,.4); border-radius: 6px; padding: 3px 7px; margin-left: 8px; }
+  .cmds { color: #6e6e73; font-size: 12px; margin-top: 8px; }
+  .group { margin-top: 30px; }
+  .group-title { font: 13px/1 ui-monospace, Menlo, Consolas, monospace; letter-spacing: .12em; text-transform: uppercase; color: #6e6e73; border-bottom: 1px solid #2c2c2e; padding-bottom: 8px; }
+  .group-count { margin-left: 8px; color: #48484a; }
   @media (max-width: 600px) { .wrap { padding: 40px 16px 60px; } h1 { font-size: 26px; } }
 </style>
 </head>
@@ -26,17 +31,43 @@
   <div class="eyebrow">Folio Store</div>
   <h1>Folio 插件商店</h1>
   <p class="sub">安装：Folio → 设置 → 插件 → 商店 → 安装。也可以直接把这个地址填进插件商店。</p>
-  <div id="list"></div>
+  <div id="list">
+    <section class="group">
+      <h2 class="group-title">阅读增强<span class="group-count">2</span></h2>
+        <div class="card">
+          <h2>每日书摘<span class="ver">v1.1.0</span><span class="flag">推荐</span></h2>
+          <div class="desc">随机弹出一句书摘。可以在设置里塞自己的句子，存在插件自己的存储里。</div>
+          <div class="chips"><span class="chip">notify</span></div>
+          <div class="cmds">命令：来一句书摘</div>
+        </div>
+        <div class="card">
+          <h2>随机抽书<span class="ver">v1.0.0</span></h2>
+          <div class="desc">从书架里随机抽一本，选择困难的时候用。</div>
+          <div class="chips"><span class="chip">notify</span><span class="chip">books</span></div>
+          <div class="cmds">命令：随机抽一本 / 抽三本备选</div>
+        </div>
+    </section>
+    <section class="group">
+      <h2 class="group-title">统计<span class="group-count">1</span></h2>
+        <div class="card">
+          <h2>阅读时钟<span class="ver">v1.1.0</span><span class="flag">推荐</span></h2>
+          <div class="desc">统计今天读了多久、翻了几本书。设置里可以给每天定个目标。</div>
+          <div class="chips"><span class="chip">notify</span></div>
+          <div class="cmds">命令：今日阅读统计 / 清零今天的记录</div>
+        </div>
+    </section>
+    <section class="group">
+      <h2 class="group-title">界面<span class="group-count">1</span></h2>
+        <div class="card">
+          <h2>阅读面板<span class="ver">v1.0.0</span><span class="flag">推荐</span></h2>
+          <div class="desc">用插件界面展示书架概览，支持一键刷新和随机推荐。</div>
+          <div class="chips"><span class="chip">ui</span><span class="chip">books</span><span class="chip">notify</span></div>
+          <div class="cmds">命令：打开阅读面板</div>
+        </div>
+    </section>
+
+  </div>
 </div>
-<script>
-fetch('index.json').then((r) => r.json()).then((data) => {
-  document.getElementById('list').innerHTML = data.plugins.map((p) => `
-    <div class="card">
-      <h2>${p.name}<span class="ver">v${p.version}</span></h2>
-      <div class="desc">${p.description || ''}</div>
-      <div class="chips">${(p.permissions.length ? p.permissions : ['无权限']).map((x) => '<span class="chip">' + x + '</span>').join('')}</div>
-    </div>`).join('');
-});
-</script>
+
 </body>
 </html>
