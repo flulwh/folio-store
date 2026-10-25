@@ -1,0 +1,21 @@
+{
+  "manifest": {
+    "id": "theme-pack",
+    "name": "配色包",
+    "version": "1.0.0",
+    "apiVersion": 1,
+    "description": "两套额外配色：琥珀（暖橙）与墨绿。装上后可在外观里直接切换。",
+    "author": "Folio",
+    "main": "main.js",
+    "permissions": [
+      "themes"
+    ],
+    "contributes": {
+      "themes": true
+    }
+  },
+  "files": {
+    "main.js": "const THEMES = [\n  {\n    id: 'amber',\n    label: '琥珀',\n    tone: 'light',\n    tokens: {\n      bg: '#fbf3e6',\n      bgElevated: '#fffaf0',\n      bgSunken: '#f3e7d2',\n      bgHover: 'rgba(140, 96, 40, 0.1)',\n      text: '#2a1f12',\n      textSoft: 'rgba(64, 46, 26, 0.62)',\n      textFaint: 'rgba(64, 46, 26, 0.34)',\n      line: 'rgba(110, 80, 42, 0.24)',\n      accent: '#c2681a',\n      accentSoft: 'rgba(194, 104, 26, 0.14)',\n      accentContrast: '#fffaf0',\n      sheetBg: 'rgba(255, 250, 240, 0.88)',\n      toolbarBg: 'rgba(251, 243, 230, 0.84)',\n    },\n  },\n  {\n    id: 'ink',\n    label: '墨绿',\n    tone: 'dark',\n    tokens: {\n      bg: '#0c1210',\n      bgElevated: '#151d1a',\n      bgSunken: '#070b0a',\n      bgHover: 'rgba(190, 255, 226, 0.08)',\n      text: '#e6f2ec',\n      textSoft: 'rgba(214, 235, 226, 0.6)',\n      textFaint: 'rgba(214, 235, 226, 0.3)',\n      line: 'rgba(190, 255, 226, 0.18)',\n      accent: '#3ddc97',\n      accentSoft: 'rgba(61, 220, 151, 0.16)',\n      accentContrast: '#07110c',\n      sheetBg: 'rgba(21, 29, 26, 0.88)',\n      toolbarBg: 'rgba(12, 18, 16, 0.82)',\n    },\n  },\n];\n\nmodule.exports.activate = (folio) => {\n  for (const theme of THEMES) folio.themes.register(theme);\n};\n",
+    "manifest.json": "{\n  \"id\": \"theme-pack\",\n  \"name\": \"配色包\",\n  \"version\": \"1.0.0\",\n  \"apiVersion\": 1,\n  \"description\": \"两套额外配色：琥珀（暖橙）与墨绿。装上后可在外观里直接切换。\",\n  \"author\": \"Folio\",\n  \"main\": \"main.js\",\n  \"permissions\": [\"themes\"],\n  \"contributes\": {\n    \"themes\": true\n  }\n}\n"
+  }
+}
