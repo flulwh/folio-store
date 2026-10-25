@@ -2,7 +2,7 @@
   "version": 1,
   "name": "Folio 插件商店",
   "homepage": "https://flulwh.github.io/folio-store/",
-  "updatedAt": "2026-10-25T05:22:59.717Z",
+  "updatedAt": "2026-10-25T05:28:16.912Z",
   "count": 8,
   "categories": [
     {
@@ -159,8 +159,8 @@
       "featured": true,
       "summary": "番茄钟：专注一轮、休息一下，把今天读了几轮记下来。",
       "bundle": "plugins/focus-timer.json",
-      "sha256": "9ff98d665874bd87b8f4af205e330742dd54bd0bc9940889925d1491b7473543",
-      "size": 6982
+      "sha256": "0c8a484e6be59d3b6b12b9fdfe8441748e7a90822e28aacf14aad3e02ad07942",
+      "size": 7677
     },
     {
       "id": "quote-book",
@@ -188,8 +188,8 @@
       "featured": true,
       "summary": "随手记下句子，随机抽一句、一键复制，都放在插件自己的存储里。",
       "bundle": "plugins/quote-book.json",
-      "sha256": "c76f349907d3279f3312b9ac3f97a9cee7562d9def63ad3d65a5e4261cab12e3",
-      "size": 5085
+      "sha256": "73c164aaf6d850f26fb83db91053526165b283dddb40681dd56e5c4739fc3199",
+      "size": 5354
     },
     {
       "id": "reading-goal",
@@ -218,8 +218,8 @@
       "featured": true,
       "summary": "给每天定一个阅读时长目标，记录连续天数，完成时提醒你。",
       "bundle": "plugins/reading-goal.json",
-      "sha256": "59d37cb5efaebdf3aa6b7c8779d52e40cd74512bf96ac27396a4684b18d289fb",
-      "size": 5720
+      "sha256": "b5e243f2d90cb052f3e483372a18fc07f06106f37d433c6f9d70850af05a4661",
+      "size": 6058
     },
     {
       "id": "reading-presets",
@@ -247,8 +247,8 @@
       "featured": false,
       "summary": "一键切换紧凑、舒适、大字三种排版。",
       "bundle": "plugins/reading-presets.json",
-      "sha256": "b4012fff573814a9227b683c3a9da3da5dbedb5d20edf1414d63c59a1847a6c1",
-      "size": 4684
+      "sha256": "ec5f6129ac927433df76857b1dcdc6ef893d92494edf8bc821e51e306e46c61c",
+      "size": 4976
     }
   ]
 }
